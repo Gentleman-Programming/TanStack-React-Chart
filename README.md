@@ -9,9 +9,6 @@ está construida con un stack de tecnologías modernas y optimizadas para el ren
 - **Visualización de datos en tiempo real:** Muestra gráficos de líneas para múltiples
   criptomonedas (BTC_USDT, ETH_USDT, XRP_USDT, ADA_USDT, DOGE_USDT), actualizados
   al instante a medida que se reciben nuevos datos a través del WebSocket.
-- **Adaptador WebSocket funcional:** Implementa un adaptador funcional para la conexión
-  y manejo de mensajes WebSocket, incluyendo la adaptación de datos, el manejo de
-  errores y la reconexión automática.
 - **Hook `useWebSocket` personalizado:** Facilita la integración del adaptador WebSocket
   con los componentes de React, proporcionando acceso a los datos y al estado de
   la conexión.
@@ -59,8 +56,6 @@ Juntos, permiten un flujo de trabajo de desarrollo ágil y una aplicación final
   - `models/`: Modelos de datos.
     - `SocketData.ts`: Interfaz para los datos recibidos por el WebSocket.
     - `Trade.ts`: Interfaz para los datos de trading individuales.
-  - `webSocketAdapter.ts`: Adaptador funcional para la conexión y manejo de mensajes
-    WebSocket.
   - `App.tsx`: Componente principal de la aplicación.
   - `index.tsx`: Punto de entrada de la aplicación.
 - `public/`: Contiene archivos estáticos.

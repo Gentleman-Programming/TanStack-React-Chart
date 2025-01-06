@@ -11,6 +11,7 @@ type Datum = {
 };
 
 export const TradeChart = ({ trades }: TradeChartProps) => {
+  // Map to define colors for each trade symbol
   const colorMap: { [key: string]: string } = {
     BTC_USDT: "#eb6f92",
     ETH_USDT: "#9ccfd8",
@@ -19,10 +20,12 @@ export const TradeChart = ({ trades }: TradeChartProps) => {
     DOGE_USDT: "#31748f",
   };
 
+  // Get unique trade symbols
   const uniqueSymbols = Array.from(
     new Set(trades.map((trade) => trade.symbol)),
   );
 
+  // Prepare data for the chart
   const data = uniqueSymbols.map((symbol) => ({
     label: symbol,
     data: trades
@@ -34,10 +37,13 @@ export const TradeChart = ({ trades }: TradeChartProps) => {
       })),
   }));
 
+  // Define primary axis options
   const primaryAxis: AxisOptions<Datum> = {
     getValue: (datum) => datum.date,
     scaleType: "time",
   };
+
+  // Define secondary axis options
   const secondaryAxes: AxisOptions<Datum>[] = [
     {
       getValue: (datum) => datum.price,
@@ -46,10 +52,12 @@ export const TradeChart = ({ trades }: TradeChartProps) => {
     },
   ];
 
+  // Return null if there are no trades
   if (trades.length === 0) {
     return null;
   }
 
+  // Render the chart
   return (
     <div style={{ width: "100%", height: "300px" }}>
       <Chart
