@@ -64,8 +64,11 @@ Juntos, permiten un flujo de trabajo de desarrollo ágil y una aplicación final
 
 1. Clona el repositorio: `git clone <URL del repositorio>`
 2. Instala las dependencias: `bun install`
-3. Inicia el servidor WebSocket: Asegúrate de tener un servidor WebSocket corriendo
-   en `ws://localhost:8080/ws/trades` que envíe datos en el formato esperado.
+3. Inicia el servidor WebSocket: Asegúrate de tener un servidor WebSocket
+   corriendo en `ws://localhost:8080/ws/trades` que envíe datos en el formato
+   esperado. El código del servidor se encuentra en la carpeta `proxy-server`.
+   Para correr el servidor de Go, navega a la carpeta `proxy-server` y ejecuta
+   `go run .`.
 4. Inicia la aplicación: `bun run dev` (o el comando que hayas configurado para iniciar
    el servidor de desarrollo)
 
