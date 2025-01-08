@@ -1,25 +1,55 @@
-import { useEffect, useState } from "react";
-import { SocketData } from "../models";
+import { useState, useEffect, useRef } from "react";
+import { Trade } from "../models";
+import { messageAdapter } from "../adapters/message.adapter";
 
-export const useWebSocket = (url: string) => {
-  const [messages, setMessages] = useState<SocketData[]>([]);
+interface WebSocketOptions {
+  url: string;
+  onMessage: (data: Trade[]) => void;
+  onError: (error: Event) => void;
+  onClose: (event: CloseEvent) => void;
+}
+
+export const useWebSocket = (options: WebSocketOptions) => {
+  const { url, onMessage, onError, onClose } = options;
+  const [isConnected, setIsConnected] = useState(false);
+  const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
     const ws = new WebSocket(url);
+    wsRef.current = ws;
+
+    ws.onopen = () => {
+      setIsConnected(true);
+    };
 
     ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      setMessages((prevMessages) => [data, ...prevMessages]);
+      const adaptedData = messageAdapter(event.data);
+      onMessage(adaptedData);
     };
 
     ws.onerror = (error) => {
       console.error("WebSocket Error:", error);
+      onError(error);
+    };
+
+    ws.onclose = (event) => {
+      setIsConnected(false);
+      onClose(event);
     };
 
     return () => {
-      ws.close();
+      wsRef.current?.close();
+      wsRef.current = null;
     };
-  }, [url]);
+  }, [url, onMessage, onError, onClose]);
 
-  return { messages };
+  const sendMessage = (message: any) => {
+    if (isConnected && wsRef.current) {
+      wsRef.current.send(JSON.stringify(message));
+    } else {
+      console.error("WebSocket is not connected");
+    }
+  };
+
+  return { isConnected, sendMessage };
 };
