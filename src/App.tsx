@@ -1,14 +1,14 @@
 import { useCallback, useState } from "react";
 import "./App.css";
+import { TradeChart } from "./components/TradeChart";
 import { useWebSocket } from "./hooks/WebSocketClient";
 import { Trade } from "./models";
-import { TradeChart } from "./components/TradeChart";
 
 const App = () => {
   const [trades, setTrades] = useState<Trade[]>([]);
 
   // Handle incoming WebSocket messages
-  const handleOnMessage = useCallback((data: any) => {
+  const handleOnMessage = useCallback((data: Trade[]) => {
     setTrades((prevTrades) => [...prevTrades, ...data]);
   }, []);
 

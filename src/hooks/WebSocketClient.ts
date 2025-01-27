@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
-import { Trade } from "../models";
+import { useEffect, useRef, useState } from "react";
 import { messageAdapter } from "../adapters/message.adapter";
+import { Trade } from "../models";
 
 interface WebSocketOptions {
   url: string;
@@ -43,7 +43,7 @@ export const useWebSocket = (options: WebSocketOptions) => {
     };
   }, [url, onMessage, onError, onClose]);
 
-  const sendMessage = (message: any) => {
+  const sendMessage = (message: string) => {
     if (isConnected && wsRef.current) {
       wsRef.current.send(JSON.stringify(message));
     } else {

@@ -8,7 +8,7 @@ const colorMap: { [key: string]: string } = {
   DOGE_USDT: "#31748f",
 };
 
-export const messageAdapter = (message: any): Trade[] => {
+export const messageAdapter = (message: string): Trade[] => {
   try {
     const parsedData = JSON.parse(message);
     if (
@@ -23,10 +23,10 @@ export const messageAdapter = (message: any): Trade[] => {
         ...trade,
         color: colorMap[trade.symbol] || "#000000",
       }));
-    } else {
-      console.error("Invalid message format:", message);
-      return [];
     }
+
+    console.error("Invalid message format:", message);
+    return [];
   } catch (error) {
     console.error("Error parsing message:", error);
     return [];

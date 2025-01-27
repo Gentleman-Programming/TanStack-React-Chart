@@ -1,5 +1,5 @@
-import { Trade } from "../models";
 import { AxisOptions, Chart } from "react-charts";
+import { Trade } from "../models";
 
 interface TradeChartProps {
   trades: Trade[];
